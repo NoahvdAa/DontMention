@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports.command = new SlashCommandBuilder()
 	.setName('dontmention')
 	.setDescription('Toggles your mention preference')
-	.addBooleanOption(option => option.setName('allowmentions')
+	.addBooleanOption((option) => option.setName('allowmentions')
 		.setDescription('Whether you want to be mentioned')
 		.setRequired(false));
 
@@ -29,6 +29,7 @@ module.exports.run = async (client, interaction) => {
 
 	await client.knex('users').update({
 		preference: wantsMentions
-	}).where('id', interaction.user.id)
+	}).where('id', interaction.user.id);
+
 	await interaction.reply({ content: message, ephemeral: true });
 };

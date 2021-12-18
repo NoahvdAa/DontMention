@@ -22,19 +22,27 @@ const client = new Client({
 });
 client.knex = knex;
 
-fs.readdir(`${__dirname}/events`, (err, files) => files.forEach(file => {
-	if (!file.endsWith('.js')) return;
+const eventsFolder = `${__dirname}/events`;
+fs.readdir(eventsFolder, (err, files) => files.forEach((file) => {
+	if (!file.endsWith('.js')) {
+		return;
+	}
 	const eventName = file.split('.js')[0];
-	const event = require(`${__dirname}/events/${file}`);
+	const eventFile = `${__dirname}/events/${file}`;
+	const event = require(eventFile);
 
 	client.on(eventName, event.bind(null, client));
 	console.log(`Loaded event: ${eventName}`);
 }));
 
 client.commands = new Collection();
-fs.readdir(`${__dirname}/commands`, (err, files) => files.forEach(file => {
-	if (!file.endsWith('.js')) return;
-	const command = require(`${__dirname}/commands/${file}`);
+const commandsFolder = `${__dirname}/commands`;
+fs.readdir(commandsFolder, (err, files) => files.forEach((file) => {
+	if (!file.endsWith('.js')) {
+		return;
+	}
+	const commandFile = `${__dirname}/commands/${file}`;
+	const command = require(commandFile);
 	const commandName = command.command.name;
 
 	client.commands.set(commandName, command);

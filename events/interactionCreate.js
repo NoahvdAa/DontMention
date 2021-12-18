@@ -1,7 +1,11 @@
 module.exports = async (client, interaction) => {
-	if (!interaction.isCommand()) return;
+	if (!interaction.isCommand()) {
+		return;
+	}
 
 	const command = client.commands.get(interaction.commandName);
-	if (command === undefined) return;
+	if (typeof command === 'undefined') {
+		return;
+	}
 	command.run(client, interaction);
 };
