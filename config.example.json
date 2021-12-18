@@ -1,0 +1,10 @@
+{
+	"discordToken": "",
+	"discordClientID": "",
+	"databaseConnection": {
+		"host": "localhost",
+		"user": "root",
+		"password": "root",
+		"database": "dontmention"
+	}
+}

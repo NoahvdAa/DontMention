@@ -1,0 +1,27 @@
+{
+  "name": "dontmention",
+  "version": "1.0.0",
+  "description": "Don't mention allows your members to mark themselves as not wanting to be pinged. When someone *does* ping one of your members that don't want to be pinged, whether it's directly or via a reply, Don't Mention will inform them that the member in question doesn't want to be pinged.",
+  "main": "index.js",
+  "scripts": {
+    "start": "knex migrate:latest && node index.js"
+  },
+  "author": "NoahvdAa",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoahvdAa/DontMention.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NoahvdAa/DontMention/issues"
+  },
+  "homepage": "https://github.com/NoahvdAa/DontMention#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.9.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.25.2",
+    "discord.js": "^13.3.1",
+    "knex": "^0.95.14",
+    "mysql2": "^2.3.3-rc.0"
+  }
+}
