@@ -86,4 +86,14 @@ function postAnalytics() {
 			}
 		});
 	}
+
+	client.user.setPresence({
+		status: 'dnd',
+		activities: [
+			{
+				type: 'WATCHING',
+				name: `pings in ${guildCount} server${guildCount !== 1 ? 's' : ''}`
+			}
+		]
+	});
 }
