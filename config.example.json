@@ -6,5 +6,9 @@
 		"user": "root",
 		"password": "root",
 		"database": "dontmention"
+	},
+	"botLists": {
+		"discord.bots.ggToken": "",
+		"discordbotlist.comToken": ""
 	}
 }

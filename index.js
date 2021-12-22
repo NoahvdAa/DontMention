@@ -1,6 +1,7 @@
 const config = require('./config.json');
 
 const { Client, Collection } = require('discord.js');
+const fetch = require('node-fetch');
 const fs = require('fs');
 
 const knex = require('knex')(require('./knexfile.js'));
@@ -51,6 +52,38 @@ fs.readdir(commandsFolder, (err, files) => files.forEach((file) => {
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
+
+	postAnalytics();
+	setInterval(postAnalytics, 10 * 60 * 1000);
 });
 
 client.login(config.discordToken);
+
+function postAnalytics() {
+	const guildCount = client.guilds.cache.size;
+
+	if (config.botLists['discord.bots.ggToken'] !== '') {
+		fetch(`https://discord.bots.gg/api/v1/bots/${client.user.id}/stats`, {
+			method: 'post',
+			body: JSON.stringify({
+				guildCount
+			}),
+			headers: {
+				'Authorization': config.botLists['discord.bots.ggToken'],
+				'Content-Type': 'application/json'
+			}
+		});
+	}
+	if (config.botLists['discordbotlist.comToken'] !== '') {
+		fetch(`https://discordbotlist.com/api/v1/bots/${client.user.id}/stats`, {
+			method: 'post',
+			body: JSON.stringify({
+				guilds: guildCount
+			}),
+			headers: {
+				'Authorization': config.botLists['discordbotlist.comToken'],
+				'Content-Type': 'application/json'
+			}
+		});
+	}
+}
