@@ -9,20 +9,19 @@ module.exports.command = new SlashCommandBuilder()
 
 module.exports.run = async (client, interaction) => {
 	var wantsMentions = interaction.options.getBoolean('allowmentions');
+
+	const userResults = await client.knex('users').where('id', interaction.user.id);
+	if (userResults.length === 0) {
+		// Create their profile.
+		await client.knex('users').insert({
+			id: interaction.user.id,
+			preference: false
+		});
+	}
+
 	if (wantsMentions === null) {
 		// They didn't specify an option, invert their current value!
-		const userResults = await client.knex('users').where('id', interaction.user.id);
-		if (userResults.length === 0) {
-			// Create their profile.
-			await client.knex('users').insert({
-				id: interaction.user.id,
-				preference: false
-			});
-			wantsMentions = false;
-		} else {
-			wantsMentions = userResults[0].preference === 1;
-			wantsMentions = !wantsMentions;
-		}
+		wantsMentions = userResults[0].preference !== 1;
 	}
 
 	const message = wantsMentions ? '**Got it.** I won\'t do anything when people ping you.' : '**Got it.** I\'ll inform users that try to ping you that you don\'t want to be pinged.';
