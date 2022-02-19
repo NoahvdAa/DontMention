@@ -55,7 +55,7 @@ module.exports = async (client, message) => {
 	const joinedUsers = joinUsers(usersThatDontWantMentions);
 	var reply = `Hey **${message.author.username}**! ${joinedUsers} prefer${userCount === 1 ? 's' : ''} to not be mentioned/tagged! Please respect their wishes by not mentioning them again.`;
 	if (message.reference) {
-		reply += '\nWhen using Discord\'s reply feature, click the @ button in the bottom right of your screen to disable mentions: <:reply_ping_on:921775902889771058> > <:reply_ping_off:921775905293086824>';
+		reply += '\nWhen using Discord\'s reply feature, click the @ button in the bottom right of your screen to disable mentions: <:reply_ping_on:921775902889771058> :arrow_right: <:reply_ping_off:921775905293086824>';
 	}
 
 	message.channel.send(reply).catch((e) => console.error('Failed to reply to message: ', e));
